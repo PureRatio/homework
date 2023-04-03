@@ -1,13 +1,11 @@
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.Keys;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +24,8 @@ public class PageObjectTest {
 
         driver.findElement(By.xpath("//button[text()='Соглашаюсь']")).click();
 
+
+
         new WebDriverWait(driver, 10)
                 .ignoring(WebDriverException.class)
                     .until(d -> {
@@ -38,6 +38,39 @@ public class PageObjectTest {
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h1[text()='Шефбургер Де Люкс Оригинальный']")));
         Assert.assertTrue("Кнопка 'В корзину' не активна",
                 driver.findElement(By.xpath("//button[contains(text(),'В корзину')]")).isEnabled());
+
+        new WebDriverWait(driver, 10)
+                .ignoring(WebDriverException.class)
+                .until(d -> {
+                    driver.findElement(By.xpath("//button[contains(text(),'В корзину')]")).click();
+                    return true;
+                });
+
+
+        new WebDriverWait(driver, 10)
+                .ignoring(WebDriverException.class)
+                .until(d -> {
+                    driver.findElement(By.xpath("//button//*[contains(text(),'ресторане')]")).click();
+                    return true;
+                });
+
+        WebElement element = driver.findElement(By.xpath("//*[contains(@placeholder,'Поиск')]"));
+
+        new WebDriverWait(driver, 10)
+                .ignoring(WebDriverException.class)
+                .until(d -> {
+                    element.sendKeys("Новослободская\n");
+                    element.sendKeys(Keys.ENTER);
+                    return true;
+                });
+
+        new WebDriverWait(driver, 10)
+                .ignoring(WebDriverException.class)
+                .until(d -> {
+                    driver.findElement(By.xpath("//button[contains(text(),'Выбрать этот ресторан')]")).click();
+                    return true;
+                });
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @After
