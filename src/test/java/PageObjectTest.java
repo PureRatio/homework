@@ -56,7 +56,7 @@ public class PageObjectTest {
 
         WebElement element = driver.findElement(By.xpath("//*[contains(@placeholder,'Поиск')]"));
 
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, 15)
                 .ignoring(WebDriverException.class)
                 .until(d -> {
                     element.sendKeys("Новослободская\n");
@@ -64,12 +64,41 @@ public class PageObjectTest {
                     return true;
                 });
 
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, 20)
                 .ignoring(WebDriverException.class)
                 .until(d -> {
                     driver.findElement(By.xpath("//button[contains(text(),'Выбрать этот ресторан')]")).click();
                     return true;
                 });
+
+        new WebDriverWait(driver, 10)
+                .ignoring(WebDriverException.class)
+                .until(d -> {
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(false)", driver.findElement(By.xpath("//div[@id='main1002650']/descendant::div[text()='Бургер Чили Чиз']")));
+                    driver.findElement(By.xpath("//div[@id='main1002650']/descendant::div[text()='Бургер Чили Чиз']")).click();
+                    return true;
+                });
+
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h1[text()='Бургер Чили Чиз']")));
+        Assert.assertTrue("Кнопка 'В корзину' не активна",
+                driver.findElement(By.xpath("//button[contains(text(),'В корзину')]")).isEnabled());
+
+        new WebDriverWait(driver, 10)
+                .ignoring(WebDriverException.class)
+                .until(d -> {
+                    driver.findElement(By.xpath("//button[contains(text(),'В корзину')]")).click();
+                    return true;
+                });
+
+        new WebDriverWait(driver, 10)
+                .ignoring(WebDriverException.class)
+                .until(d -> {
+                    driver.findElement(By.xpath("//a[@href='/checkout']//span")).click();
+                    return true;
+                });
+
+
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
