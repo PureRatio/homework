@@ -14,6 +14,9 @@ public class MenuPage extends BasePage {
     @FindBy(xpath = "//a[@href]//div[text()]/..")
     List<WebElement> products;
 
+    @FindBy(xpath = "//span[text()]")
+    WebElement foundOption;
+
     @FindBy(xpath = "//button[text()='Соглашаюсь']")
     WebElement confirmCookiesBtn;
 
@@ -45,8 +48,11 @@ public class MenuPage extends BasePage {
         deliveryType.click();
         inARestaurant.click();
         inputRestaurant.sendKeys(value);
-        inputRestaurant.sendKeys(ENTER);
         new WebDriverWait(driver, 10)
+                .until(d -> ExpectedConditions.textToBePresentInElement(foundOption, value));
+        inputRestaurant.sendKeys(ENTER);
+
+        new WebDriverWait(driver, 15)
                 .ignoring(WebDriverException.class)
                 .until(d -> {
                     ((JavascriptExecutor) d).executeScript("arguments[0].scrollIntoView(false)",
