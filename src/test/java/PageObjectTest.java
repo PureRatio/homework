@@ -7,7 +7,7 @@ public class PageObjectTest extends BaseTest {
     public void test(){
 
         new MenuPage()
-                .chooseRestaurant("Карачарово\n")
+                .chooseRestaurant("Новослободская")
                 .selectDish("Шефбургер Де Люкс Оригинальный")
                 .addDishToCart("Шефбургер Де Люкс Оригинальный")
                 .goToMenu()

@@ -2,7 +2,6 @@ package fifth.pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,17 +30,6 @@ public class MenuPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(),'Выбрать этот ресторан')]")
     WebElement confirmationOfTheRestaurant;
-
-    @FindBy(xpath = "//*[text()='Шефбургер Де Люкс Оригинальный']")
-    WebElement chefburgerDeLuxeOrig;
-
-    @FindBy(xpath = "//div[@id='main1002650']/descendant::div[text()='Бургер Чили Чиз']")
-    WebElement chiliBurger;
-
-    public MenuPage confirmCookie(){
-        confirmCookiesBtn.click();
-        return this;
-    }
 
     public MenuPage chooseRestaurant(String value){
         WebDriver driver = WebDriverManager.getDriver();
@@ -83,7 +71,7 @@ public class MenuPage extends BasePage {
     }
 
     private void saveDish(WebElement element, String name){
-        Integer price = Integer.valueOf(element.findElement(By.xpath("./..//span[1]")).getText());
+        Integer price = Integer.valueOf(element.findElement(By.xpath(".//following-sibling::div[@itemtype]/span[1]")).getText());
         if (cart.containsKey(name)) {
             cart.put(name, cart.get(name) + price);
         } else {
