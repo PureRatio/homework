@@ -7,17 +7,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static org.openqa.selenium.Keys.ENTER;
-
 public class MenuPage extends BasePage {
     @FindBy(xpath = "//a[@href]//div[text()]/..")
     List<WebElement> products;
 
     @FindBy(xpath = "//span[text()]")
     WebElement foundOption;
-
-    @FindBy(xpath = "//button[text()='Соглашаюсь']")
-    WebElement confirmCookiesBtn;
 
     @FindBy(xpath = "//*[text()='Выбрать способ получения']")
     WebElement deliveryType;
@@ -36,9 +31,12 @@ public class MenuPage extends BasePage {
         deliveryType.click();
         inARestaurant.click();
         inputRestaurant.sendKeys(value);
-        new WebDriverWait(driver, 10)
-                .until(d -> ExpectedConditions.textToBePresentInElement(foundOption, value));
-        inputRestaurant.sendKeys(ENTER);
+        new WebDriverWait(driver, 15)
+                .until(d -> {
+                    ExpectedConditions.textToBePresentInElement(foundOption, value);
+                    driver.findElement(By.xpath(".//h1[contains(text(), 'Карта')]/..//span[text()='" + value + "']/..")).click();
+                    return true;
+                });
 
         new WebDriverWait(driver, 15)
                 .ignoring(WebDriverException.class)
