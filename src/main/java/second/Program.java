@@ -8,5 +8,7 @@ public class Program {
         personY.talk();
         Person personZ = new Person("Olga", 18);
         personZ.talk();
+
+        personX.count();
     }
 }
