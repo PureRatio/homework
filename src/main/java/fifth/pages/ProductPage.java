@@ -1,6 +1,8 @@
 package fifth.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,13 +21,15 @@ public class ProductPage extends BasePage{
     @FindBy(xpath = "//a[@href='/checkout']//span")
     WebElement goToCartBtn;
 
-    public ProductPage addDishToCart(String name){
+    public ProductPage addDishToCart(String name) {
         WebDriver driver = WebDriverManager.getDriver();
-        new WebDriverWait(driver, 10)
-                .until(d -> ExpectedConditions.textToBePresentInElement(title, name));
-        new WebDriverWait(driver, 10)
-                .until(d -> ExpectedConditions.elementToBeClickable(addDishBtn));
-        addDishBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(d -> ExpectedConditions.textToBePresentInElement(title, name));
+        wait.until(d -> ExpectedConditions.elementToBeClickable(addDishBtn));
+        wait.ignoring(WebDriverException.class).until(d -> {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click()",addDishBtn);
+            return true;
+        });
         return new ProductPage();
     }
 
