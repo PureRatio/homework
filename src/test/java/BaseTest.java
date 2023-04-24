@@ -2,7 +2,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import fifth.pages.WebDriverManager;
+import pageObject.pages.WebDriverManager;
 
 public class BaseTest {
 

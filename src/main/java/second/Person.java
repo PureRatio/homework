@@ -2,9 +2,9 @@ package second;
 
 public class Person {
     private static int count;
-    int id;
-    String fullName;
-    int age;
+    private int id;
+    private String fullName;
+    private int age;
 
     public Person() {
         id = count;
@@ -31,5 +31,13 @@ public class Person {
                 System.out.printf("Привет я %s и мне %d лет\n", fullName, age);
             }
         }
+    }
+
+    public boolean hasName(){
+        return fullName!=null && !fullName.equals("");
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 }

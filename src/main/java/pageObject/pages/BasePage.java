@@ -1,4 +1,4 @@
-package fifth.pages;
+package pageObject.pages;
 
 import org.openqa.selenium.support.PageFactory;
 

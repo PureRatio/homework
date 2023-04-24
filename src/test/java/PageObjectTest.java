@@ -1,4 +1,4 @@
-import fifth.pages.MenuPage;
+import pageObject.pages.MenuPage;
 import org.junit.Test;
 
 public class PageObjectTest extends BaseTest {
