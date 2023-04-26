@@ -1,7 +1,7 @@
-package practiceTasks.sixth;
+package practiceTasks.fifth;
 
 public interface Boxable {
-    void addSweet();
+    void addSweet(Sweet sweet);
     void deleteSweet(int index);
     double getWeight();
     int getCost();
