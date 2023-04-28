@@ -1,13 +1,16 @@
+import io.qameta.allure.junit4.DisplayName;
 import pageObject.pages.MenuPage;
 import org.junit.Test;
 
 public class PageObjectTest extends BaseTest {
 
-    @Test
-    public void test(){
+    MenuPage menuPage = new MenuPage();
 
-        new MenuPage()
-                .chooseRestaurant("Новослободская")
+    @DisplayName("Добавление блюда в корзину")
+    @Test
+    public void test() {
+
+        menuPage.chooseRestaurant("Новослободская")
                 .selectDish("Шефбургер Де Люкс Оригинальный")
                 .addDishToCart("Шефбургер Де Люкс Оригинальный")
                 .goToMenu()

@@ -1,5 +1,6 @@
 package pageObject.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,6 +27,7 @@ public class MenuPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Выбрать этот ресторан')]")
     WebElement confirmationOfTheRestaurant;
 
+    @Step("выбран способ получения заказа - самовывоз")
     public MenuPage chooseRestaurant(String value){
         WebDriver driver = WebDriverManager.getDriver();
         deliveryType.click();
@@ -49,6 +51,7 @@ public class MenuPage extends BasePage {
         return this;
     }
 
+    @Step("выбрано блюдо '{0}'")
     public ProductPage selectDish(String name){
         WebDriver driver = WebDriverManager.getDriver();
         for (WebElement element : products){
@@ -68,6 +71,7 @@ public class MenuPage extends BasePage {
         return new ProductPage();
     }
 
+    @Step("у блюда '{1}' сохраняется стоимость - '{0}'")
     private void saveDish(WebElement element, String name){
         Integer price = Integer.valueOf(element.findElement(By.xpath(".//following-sibling::div[@itemtype]/span[1]")).getText());
         if (cart.containsKey(name)) {

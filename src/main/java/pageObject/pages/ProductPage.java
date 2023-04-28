@@ -1,5 +1,6 @@
 package pageObject.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -21,6 +22,7 @@ public class ProductPage extends BasePage{
     @FindBy(xpath = "//a[@href='/checkout']//span")
     WebElement goToCartBtn;
 
+    @Step("блюдо '{0}' добавлено в корзину")
     public ProductPage addDishToCart(String name) {
         WebDriver driver = WebDriverManager.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -33,11 +35,13 @@ public class ProductPage extends BasePage{
         return new ProductPage();
     }
 
+    @Step("выполнен возврат на страницу меню")
     public MenuPage goToMenu(){
         menuBtn.click();
         return new MenuPage();
     }
 
+    @Step("выполнен переход в корзину")
     public CartPage goToCart(){
         goToCartBtn.click();
         return new CartPage();

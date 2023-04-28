@@ -1,5 +1,6 @@
 package pageObject.pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ public class CartPage extends BasePage{
     @FindBy(xpath = "//*[text()='Итого к оплате']/../..//span[@class][1]")
     WebElement totalAmount;
 
+    @Step("присутствует заголовок - Ваш заказ")
     public CartPage checkTitle() {
         try {
             Assert.assertTrue("Ваш заказ",
@@ -27,6 +29,7 @@ public class CartPage extends BasePage{
         return this;
     }
 
+    @Step("в корзине присутствует блюдо - {0}")
     public CartPage existProductWithName(String name){
         for (WebElement element : products){
             if (element.getText().contains(name)){
@@ -37,15 +40,14 @@ public class CartPage extends BasePage{
         return this;
     }
 
-
+    @Step("итоговое значение суммы корректно")
     public CartPage checkAmount(){
         int expectedCommonAmount = 0;
         int actualCommonAmount = Integer.parseInt(totalAmount.getText());
         for (Integer amount : cart.values()){
             expectedCommonAmount += amount;
         }
-        Assert.assertTrue(String.format("Итоговое значение [%s] не равно ожидаемому значению [%s]", actualCommonAmount, expectedCommonAmount),
-                actualCommonAmount == expectedCommonAmount);
+        Assert.assertEquals(String.format("Итоговое значение [%s] не равно ожидаемому значению [%s]", actualCommonAmount, expectedCommonAmount), actualCommonAmount, expectedCommonAmount);
         return this;
     }
 }
